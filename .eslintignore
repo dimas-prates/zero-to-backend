@@ -1,0 +1,8 @@
+# Compiled folders
+node_modules
+dist/
+build/
+**/*.js
+# Version Control
+.git/
+docker-compose.yml
