@@ -7,18 +7,20 @@ const server = app.listen(appPort, () => { console.log(`Server's running on PORT
 
 process.on("SIGINT", (signal) => {
 	console.log(`APP (PID:${processId}) received ${signal}`);
-	process.exit(0);
+	server.close(() => { process.exit(0); });
 });
 process.on("SIGTERM", (signal) => {
 	console.log(`APP (PID:${processId}) received ${signal}`);
-	process.exit(0);
+	server.close(() => { process.exit(0); });
 });
 
 process.on("uncaughtException", (error, origin) => {
 	console.log(`APP (PID:${processId}) received ${origin}\n${error}`);
-	process.exit(1);
+	server.close(() => { process.exit(1); });
+	setTimeout(() => { process.exit(1); }, 1000).unref();
 });
 process.on("uncaughtException", (reason) => {
 	console.log(`APP (PID:${processId}) received ${reason}`);
-	process.exit(1);
+	server.close(() => { process.exit(1); });
+	setTimeout(() => { process.exit(1); }, 1000).unref();
 });
